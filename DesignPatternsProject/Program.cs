@@ -1,4 +1,5 @@
 using DesignPatternsProject.Infrastructure;
+using DesignPatternsProject.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
@@ -16,6 +17,9 @@ var client = new MongoClient("mongodb://localhost:27017");
 var db = client.GetDatabase("DesignPatternsProject");
 
 builder.Services.AddSingleton(db);
+
+builder.Services.AddScoped<IStudentsRepository, StudentsSqlRepository>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
