@@ -1,0 +1,52 @@
+﻿@page "/Students"
+@using DesignPatternsProject.UI.Data
+@using DesignPatternsProject.Models
+
+<div class="container">
+    <DxDataGrid Data="@StudentsList"
+                ShowPager="false"
+                KeyFieldName="@nameof(Student.Id)"
+                EditMode="DataGridEditMode.PopupEditForm">
+        <Columns>
+            <DxDataGridColumn Field="@(nameof(Student.FirstName))"
+                              Caption="First Name">
+            </DxDataGridColumn>
+            <DxDataGridColumn Field="@(nameof(Student.LastName))"
+                              Caption="Last Name">
+            </DxDataGridColumn>
+            <DxDataGridColumn Field="@(nameof(Student.PhoneNumber))"
+                              Caption="Phone Number">
+            </DxDataGridColumn>
+            <DxDataGridDateEditColumn Field="@nameof(Student.Birthday)"
+                                      Caption="Birthday"
+                                      DisplayFormat="dd.MM.yyyy">
+            </DxDataGridDateEditColumn>
+        </Columns>
+    </DxDataGrid>
+</div>
+
+<DxPopup></DxPopup>
+
+@code {
+    public StudentsService StudentsService = new StudentsService();
+
+    public List<Student> StudentsList { get; set; } = new();
+
+    public Student? EditStudentModel = new();
+    
+    private bool IsPopupVisible { get; set; }
+    
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            StudentsList = await StudentsService.GetStudentsList();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task AddStudent()
+    {
+        
+    }
+}
