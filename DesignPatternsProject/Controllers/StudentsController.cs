@@ -31,13 +31,13 @@ public class StudentsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<Student>>> GetAll()
+    public async Task<ActionResult<List<Student>>> GetAllStudents()
     {
         return Ok(await _studentsRepository.GetAllStudents());
     }
     
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<List<Student>>> GetById(Guid id)
+    public async Task<ActionResult<List<Student>>> GetStudentById(Guid id)
     {
         return (await _studentsRepository.GetStudentById(id)) is not null
             ? Ok()
