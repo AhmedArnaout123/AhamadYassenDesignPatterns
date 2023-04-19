@@ -18,7 +18,7 @@ var db = client.GetDatabase("DesignPatternsProject");
 
 builder.Services.AddSingleton(db);
 
-builder.Services.AddScoped<IStudentsRepository, StudentsSqlRepository>();
+builder.Services.AddScoped<IStudentsRepository, StudentsMongoDbRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
