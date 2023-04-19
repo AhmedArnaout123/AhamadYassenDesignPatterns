@@ -1,0 +1,33 @@
+﻿@page "/NewStudent"
+@using DesignPatternsProject.Models
+
+<div class="container">
+    <DxFormLayout>
+        <DxFormLayoutItem Caption="First Name" ColSpanMd="6">
+            <DxTextBox @bind-Text="@EditModel.FirstName"></DxTextBox>
+        </DxFormLayoutItem>
+        <DxFormLayoutItem Caption="Last Name" ColSpanMd="6">
+            <DxTextBox @bind-Text="@EditModel.LastName"></DxTextBox>
+        </DxFormLayoutItem>
+        <DxFormLayoutItem Caption="Phone Number" ColSpanMd="6">
+            <DxTextBox @bind-Text="@EditModel.PhoneNumber"></DxTextBox>
+        </DxFormLayoutItem>
+        <DxFormLayoutItem Caption="Birthday" ColSpanMd="6">
+            <DxDateEdit @bind-Date="@EditModel.Birthday"
+                        DisplayFormat="ddMMyyyy"></DxDateEdit>
+        </DxFormLayoutItem>
+    </DxFormLayout>
+</div>
+
+@code {
+    public Student EditModel { get; set; } = new();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            EditModel.Birthday = DateTime.Now;
+        }
+    }
+
+}
