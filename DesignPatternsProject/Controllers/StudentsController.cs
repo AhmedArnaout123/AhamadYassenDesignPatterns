@@ -34,14 +34,14 @@ public class StudentsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<Student>>> GetAll()
+    public async Task<ActionResult<List<Student>>> GetAllStudents()
     {
         var list = await (await _collection.FindAsync(new BsonDocument())).ToListAsync();
         return Ok(list);
     }
     
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<List<Student>>> GetById(Guid id)
+    public async Task<ActionResult<List<Student>>> GetStudentById(Guid id)
     {
         var student = await (await _collection.FindAsync(student => student.Id == id)).FirstOrDefaultAsync();
         if (student is null)
