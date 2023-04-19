@@ -37,14 +37,14 @@ public class StudentsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<List<Student>>> GetAll()
+    public async Task<ActionResult<List<Student>>> GetAllStudents()
     {
         var list = await _dbContext.Students.ToListAsync();
         return Ok(list);
     }
     
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<List<Student>>> GetById(Guid id)
+    public async Task<ActionResult<List<Student>>> GetStudentById(Guid id)
     {
         var student = await _dbContext.Students.FindAsync(id);
         if (student is null)
