@@ -7,8 +7,9 @@ public class StudentsService
     public async Task<List<Student>> GetStudentsList()
     {
         var httpClient = new HttpClient();
-        await Task.CompletedTask;
-        return GetInMemoryStudents();
+        httpClient.BaseAddress = new Uri("https://localhost:7255/");
+        var students = await httpClient.GetFromJsonAsync<List<Student>>("https://localhost:7255/Students");
+        return students;
     }
 
     private List<Student> GetInMemoryStudents()

@@ -6,7 +6,7 @@
     <DxDataGrid Data="@StudentsList"
                 ShowPager="false"
                 KeyFieldName="@nameof(Student.Id)"
-                EditMode="DataGridEditMode.PopupEditForm">
+                EditMode="DataGridEditMode.EditForm">
         <Columns>
             <DxDataGridColumn Field="@(nameof(Student.FirstName))"
                               Caption="First Name">
@@ -21,11 +21,13 @@
                                       Caption="Birthday"
                                       DisplayFormat="dd.MM.yyyy">
             </DxDataGridDateEditColumn>
+            <DxDataGridCommandColumn Width="120px" />
         </Columns>
     </DxDataGrid>
 </div>
 
-<DxPopup></DxPopup>
+@*
+<DxPopup></DxPopup>*@
 
 @code {
     public StudentsService StudentsService = new StudentsService();
