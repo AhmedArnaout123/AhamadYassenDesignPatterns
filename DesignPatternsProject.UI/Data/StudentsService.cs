@@ -17,6 +17,12 @@ public class StudentsService
         await httpClient.PostAsJsonAsync("https://localhost:7255/Students", student);
     }
 
+    public async Task DeleteStudent(Guid studentId)
+    {
+        var httpClient = new HttpClient();
+        await httpClient.DeleteAsync($"https://localhost:7255/Students/{studentId}");
+    }
+
     private List<Student> GetInMemoryStudents()
     {
         var list = new List<Student>();
