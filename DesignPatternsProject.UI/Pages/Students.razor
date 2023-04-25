@@ -5,8 +5,7 @@
 <div class="container">
     <DxDataGrid Data="@StudentsList"
                 ShowPager="false"
-                KeyFieldName="@nameof(Student.Id)"
-                EditMode="DataGridEditMode.EditForm">
+                KeyFieldName="@nameof(Student.Id)">
         <Columns>
             <DxDataGridColumn Field="@(nameof(Student.FirstName))"
                               Caption="First Name">
@@ -21,7 +20,6 @@
                                       Caption="Birthday"
                                       DisplayFormat="dd.MM.yyyy">
             </DxDataGridDateEditColumn>
-            <DxDataGridCommandColumn Width="120px" />
         </Columns>
     </DxDataGrid>
 </div>
