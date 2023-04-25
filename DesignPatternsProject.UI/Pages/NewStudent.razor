@@ -42,8 +42,8 @@
 
     private async Task SaveStudent()
     {
-        /*var studentService = new StudentsService();
-        await studentService.AddNewStudent(EditModel);*/
+        var studentService = new StudentsService();
+        await studentService.AddNewStudent(EditModel);
         NavigationManager.NavigateTo("/Students", true);
     }
 
