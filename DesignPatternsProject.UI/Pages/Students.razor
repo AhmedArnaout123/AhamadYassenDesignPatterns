@@ -64,5 +64,6 @@
     private async Task DeleteStudent(Guid studentId)
     {
         await StudentsService.DeleteStudent(studentId);
+        NavigationManager.NavigateTo("Students", true);
     }
 }
