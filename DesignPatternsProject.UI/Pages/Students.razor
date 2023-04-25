@@ -41,6 +41,7 @@
         if (firstRender)
         {
             StudentsList = await StudentsService.GetStudentsList();
+            StudentsList = StudentsList.OrderBy(s => s.CreatedDate).ToList();
             await InvokeAsync(StateHasChanged);
         }
     }
