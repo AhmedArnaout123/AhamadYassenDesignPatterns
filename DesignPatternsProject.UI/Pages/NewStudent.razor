@@ -1,22 +1,31 @@
 ﻿@page "/NewStudent"
 @using DesignPatternsProject.Models
+@using DesignPatternsProject.UI.Data
+@inject NavigationManager NavigationManager
 
 <div class="container">
-    <DxFormLayout>
-        <DxFormLayoutItem Caption="First Name" ColSpanMd="6">
-            <DxTextBox @bind-Text="@EditModel.FirstName"></DxTextBox>
-        </DxFormLayoutItem>
-        <DxFormLayoutItem Caption="Last Name" ColSpanMd="6">
-            <DxTextBox @bind-Text="@EditModel.LastName"></DxTextBox>
-        </DxFormLayoutItem>
-        <DxFormLayoutItem Caption="Phone Number" ColSpanMd="6">
-            <DxTextBox @bind-Text="@EditModel.PhoneNumber"></DxTextBox>
-        </DxFormLayoutItem>
-        <DxFormLayoutItem Caption="Birthday" ColSpanMd="6">
-            <DxDateEdit @bind-Date="@EditModel.Birthday"
-                        DisplayFormat="ddMMyyyy"></DxDateEdit>
-        </DxFormLayoutItem>
-    </DxFormLayout>
+    <form>
+      <div class="mb-3">
+        <label for="firstNameInput" class="form-label">First Name</label>
+        <input class="form-control" id="firstNameInput" @bind="EditModel.FirstName">
+      </div>
+        <div class="mb-3">
+            <label for="lastNameInput" class="form-label">Last Name</label>
+            <input class="form-control" id="lastNameInput" @bind="EditModel.LastName">
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumberInput" class="form-label">Phone Number</label>
+            <input class="form-control" id="phoneNumberInput" @bind="EditModel.PhoneNumber">
+        </div>
+        <div class="mb-3">
+            <label for="birthdayInput" class="form-label">Birthday</label>
+            <InputDate class="form-control"
+                       id="birthdayInput"
+                       @bind-Value="EditModel.Birthday">
+            </InputDate>
+        </div>
+        <button @onclick="SaveStudent" type="button" class="btn btn-primary">Save</button>
+    </form>
 </div>
 
 @code {
@@ -27,7 +36,15 @@
         if (firstRender)
         {
             EditModel.Birthday = DateTime.Now;
+            StateHasChanged();
         }
+    }
+
+    private async Task SaveStudent()
+    {
+        var studentService = new StudentsService();
+        await studentService.AddNewStudent(EditModel);
+        NavigationManager.NavigateTo("/Students", true);
     }
 
 }
