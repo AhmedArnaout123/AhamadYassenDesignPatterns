@@ -1,8 +1,12 @@
 ﻿@page "/Students"
 @using DesignPatternsProject.UI.Data
 @using DesignPatternsProject.Models
+@inject NavigationManager NavigationManager
 
 <div class="container">
+    <div class="text-end mb-3">
+        <button @onclick="AddStudent" type="button" class="btn btn-primary">New Student</button>
+    </div>
     <DxDataGrid Data="@StudentsList"
                 ShowPager="false"
                 KeyFieldName="@nameof(Student.Id)">
@@ -20,6 +24,12 @@
                                       Caption="Birthday"
                                       DisplayFormat="dd.MM.yyyy">
             </DxDataGridDateEditColumn>
+            <DxDataGridCommandColumn>
+                <HeaderCellTemplate></HeaderCellTemplate>
+                <CellTemplate Context="c">
+                    <button type="button" class="btn btn-danger" @onclick="@(() => DeleteStudent((c as Student)!.Id))">Delete</button>
+                </CellTemplate>
+            </DxDataGridCommandColumn>
         </Columns>
     </DxDataGrid>
 </div>
@@ -41,13 +51,19 @@
         if (firstRender)
         {
             StudentsList = await StudentsService.GetStudentsList();
-            StudentsList = StudentsList.OrderBy(s => s.CreatedDate).ToList();
+            StudentsList = StudentsList.OrderByDescending(s => s.CreatedDate).ToList();
             await InvokeAsync(StateHasChanged);
         }
     }
 
-    private async Task AddStudent()
+    private void AddStudent()
     {
-        
+        NavigationManager.NavigateTo("NewStudent");
+    }
+
+    private async Task DeleteStudent(Guid studentId)
+    {
+        await StudentsService.DeleteStudent(studentId);
+        NavigationManager.NavigateTo("Students", true);
     }
 }
